@@ -4,7 +4,12 @@ const repo = "SIH2024"; // Your repository name
 const filePath = "Patient_data.csv"; // Path to the CSV file in the repo
 const token = "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"; // Your GitHub personal access token
 
-let opdQueue = [];
+let opdQueue = [
+  { name: "Lakshay Singh", time: "10:00 AM", status: "Waiting" },
+  { name: "Anirban Sarkar", time: "10:15 AM", status: "In Consultation" },
+  { name: "Akshay Triwedi", time: "10:00 AM", status: "In Consultation"},
+  { name: "Vyakhya Namdev", time: "11:00 AM", status: "Waiting"}
+];
 
 // Function to fetch CSV content from GitHub
 async function fetchCSVData() {
