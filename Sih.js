@@ -30,6 +30,14 @@ function updateBedAvailability() {
   document.getElementById("general-beds").innerText = `Available Beds: ${bedAvailability.general}`;
   document.getElementById("private-beds").innerText = `Available Beds: ${bedAvailability.private}`;
 }
+document.getElementById("toggle-chatbot").addEventListener("click", function() {
+  const chatbotIframe = document.getElementById("chatbot-iframe");
+  if (chatbotIframe.style.display === "none") {
+    chatbotIframe.style.display = "block";
+  } else {
+    chatbotIframe.style.display = "none";
+  }
+});
 
 // Event listener for patient admission form submission
 document.getElementById("admissionForm").addEventListener("submit", function(event) {
