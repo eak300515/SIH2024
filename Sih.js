@@ -3,9 +3,8 @@ let opdQueue = [
   { name: "Lakshay Singh", time: "10:00 AM", status: "Waiting" },
   { name: "Anirban Sarkar", time: "10:15 AM", status: "In Consultation" },
   { name: "Akshay Triwedi", time: "10:00 AM", status: "In Consultation"},
-  {name: "Vyakhya Namdev", time: "11:00 AM", status: "waiting"}
+  { name: "Vyakhya Namdev", time: "11:00 AM", status: "Waiting"}
 ];
-
 
 let bedAvailability = {
   icu: 15,
@@ -41,8 +40,25 @@ document.getElementById("admissionForm").addEventListener("submit", function(eve
 
   if (bedAvailability[ward] > 0) {
     bedAvailability[ward]--;
-    alert(`${patientName} has been admitted to ${ward.charAt(0).toUpperCase() + ward.slice(1)} Ward.`);
-    updateBedAvailability();
+    
+    // Send data to Google Sheets
+    fetch('YOUR_GOOGLE_SHEET_WEB_APP_URL', { // Replace with your Web App URL
+      method: 'POST',
+      contentType: 'application/json',
+      body: JSON.stringify({
+        name: patientName,
+        ward: ward
+      })
+    })
+    .then(response => response.text())
+    .then(result => {
+      alert(`${patientName} has been admitted to ${ward.charAt(0).toUpperCase() + ward.slice(1)} Ward.`);
+      updateBedAvailability();
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      alert('Failed to add patient details.');
+    });
   } else {
     alert(`No available beds in ${ward.charAt(0).toUpperCase() + ward.slice(1)} Ward.`);
   }
