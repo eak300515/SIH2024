@@ -1,3 +1,4 @@
+// Sample OPD queue data
 let opdQueue = [
   { name: "Lakshay Singh", time: "10:00 AM", status: "Waiting" },
   { name: "Anirban Sarkar", time: "10:15 AM", status: "In Consultation" },
@@ -5,6 +6,7 @@ let opdQueue = [
   { name: "Vyakhya Namdev", time: "11:00 AM", status: "Waiting" }
 ];
 
+// Sample bed availability data
 let bedAvailability = {
   icu: 15,
   general: 45,
@@ -89,3 +91,13 @@ document.getElementById("admissionForm").addEventListener("submit", function(eve
 // Initialize the page with sample data
 populateQueue();
 updateBedAvailability();
+
+// Chatbot toggle script
+document.getElementById("toggle-chatbot").addEventListener("click", function() {
+  const chatbotIframe = document.getElementById("chatbot-iframe");
+  if (chatbotIframe.style.display === "none") {
+    chatbotIframe.style.display = "block";
+  } else {
+    chatbotIframe.style.display = "none";
+  }
+});
