@@ -1,0 +1,69 @@
+/* Full-Page Background Image Styles */
+.full-background {
+  background-image: url('hhttps://th.bing.com/th/id/R.d4d4b6833768c79ed9b0a233d5446d1b?rik=6AwDYp0euEITaQ&riu=http%3a%2f%2fclipart-library.com%2fimages%2fqiBXx4AaT.png&ehk=cFlTMlqGhZRl2MjaDSYVt2mcj4nDOh1uulb%2b0cB6dDU%3d&risl=&pid=ImgRaw&r=0'); /* Replace with your image URL */
+  background-size: cover; /* Ensures the image covers the entire background */
+  background-position: center; /* Centers the image */
+  background-attachment: fixed; /* Fixes the background image in place */
+  background-repeat: no-repeat; /* Prevents image repetition */
+  height: 100vh; /* Ensures the background covers the full viewport height */
+  width: 100vw; /* Ensures the background covers the full viewport width */
+  position: absolute; /* Positions the background image */
+  top: 0;
+  left: 0;
+  z-index: -1; /* Places the background behind other content */
+}
+
+/* Animated Background Image */
+@keyframes backgroundAnimation {
+  0% {
+    background-position: 0% 0%;
+  }
+  50% {
+    background-position: 100% 0%;
+  }
+  100% {
+    background-position: 0% 0%;
+  }
+}
+
+/* Applying the animation to the background */
+.animated-background {
+  animation: backgroundAnimation 30s linear infinite; /* Adjust duration as needed */
+}
+
+/* Blurred Background Image */
+.blurred-background {
+  background-image: url('https://example.com/path-to-your-image.jpg'); /* Replace with your image URL */
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  height: 100vh;
+  width: 100vw;
+  filter: blur(5px); /* Adjust blur radius as needed */
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+
+/* Overlay to improve text visibility over blurred background */
+.overlay {
+  background: rgba(0, 0, 0, 0.5); /* Semi-transparent overlay */
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 0; /* Positioned above blurred background but below content */
+}
+
+/* Example of a rotating background */
+@keyframes rotateBackground {
+  from { background-position: 0% 0%; }
+  to { background-position: 100% 100%; }
+}
+
+.rotating-background {
+  animation: rotateBackground 60s linear infinite; /* Adjust duration as needed */
+}
