@@ -1,19 +1,49 @@
-// Sample data for queue and bed availability
-let opdQueue = [
-  { name: "Lakshay Singh", time: "10:00 AM", status: "Waiting" },
-  { name: "Anirban Sarkar", time: "10:15 AM", status: "In Consultation" },
-  { name: "Akshay Triwedi", time: "10:00 AM", status: "In Consultation"},
-  { name: "Vyakhya Namdev", time: "11:00 AM", status: "Waiting"}
-];
+// GitHub repository details
+const username = "Anirban-Sarkar-code-it"; // Replace with your GitHub username
+const repo = "SIH2024"; // Replace with your repository name
+const filePath = "https://github.com/Anirban-Sarkar-code-it/SIH2024/blob/255fd8eef9b338980d93d2a52fec4734bea6e2f5/Patient_data.csv"; // Path to the CSV file in the repo
+const token = "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"; // Your GitHub personal access token
 
-let bedAvailability = {
-  icu: 15,
-  general: 45,
-  private: 166,
-};
+let opdQueue = [];
 
-// Function to populate OPD queue
-function populateQueue() {
+// Function to fetch CSV content from GitHub
+async function fetchCSVData() {
+  const response = await fetch(`https://api.github.com/repos/${Anirban-Sarkar-code-it}/${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}/contents/${https://github.com/Anirban-Sarkar-code-it/SIH2024/blob/255fd8eef9b338980d93d2a52fec4734bea6e2f5/Patient_data.csv}`, {
+    method: 'GET',
+    headers: {
+      'Authorization': `token ${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}`,
+      'Accept': 'application/vnd.github.v3+json'
+    }
+  });
+
+  const fileData = await response.json();
+  const csvContent = atob(fileData.content); // Decode base64 content
+
+  return csvContent;
+}
+
+// Function to parse CSV into array of objects
+function parseCSV(csvContent) {
+  const lines = csvContent.split("\n");
+  const headers = lines[0].split(",");
+
+  const data = lines.slice(1).map(line => {
+    const values = line.split(",");
+    return {
+      name: values[0].trim(),
+      time: values[1].trim(),
+      status: values[2].trim()
+    };
+  });
+
+  return data;
+}
+
+// Function to populate OPD queue dynamically
+async function populateQueue() {
+  const csvData = await fetchCSVData();
+  opdQueue = parseCSV(csvData);
+
   const queueList = document.getElementById("queue-list");
   queueList.innerHTML = ''; // Clear existing data
 
@@ -30,6 +60,7 @@ function updateBedAvailability() {
   document.getElementById("general-beds").innerText = `Available Beds: ${bedAvailability.general}`;
   document.getElementById("private-beds").innerText = `Available Beds: ${bedAvailability.private}`;
 }
+
 document.getElementById("toggle-chatbot").addEventListener("click", function() {
   const chatbotIframe = document.getElementById("chatbot-iframe");
   if (chatbotIframe.style.display === "none") {
