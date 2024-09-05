@@ -10,7 +10,7 @@
   <header>
     <h1>InstaCare Hub</h1>
     <div class="icon">
-      <img src="C:\Users\ASUS\OneDrive\Desktop\SIH\logo.jpg" alt="Hospital Logo"> <!-- Adjust the path to your image -->
+      <img src="C:/Users/ASUS/OneDrive/Desktop/SIH/logo.jpg" alt="Hospital Logo"> <!-- Adjust the path to your image -->
     </div>
   </header>
 
@@ -29,6 +29,7 @@
       </tbody>
     </table>
   </section>
+
   <section id="bed-availability">
     <h2>Bed Availability</h2>
     <div class="beds">
@@ -46,7 +47,7 @@
       </div>
     </div>
   </section>
-  
+
   <section id="admission-form">
     <h2>Patient Admission</h2>
     <form id="admissionForm">
@@ -75,12 +76,39 @@
       <button type="submit">Submit Admission</button>
     </form>
   </section>
-   <button id="toggle-chatbot" style="position: fixed; bottom: 20px; left: 20px;">Chatbot</button>
-<iframe
-  id="chatbot-iframe"
-  src="https://cdn.botpress.cloud/webchat/v2/shareable.html?botId=b0290556-9846-4c80-9f00-bdd2381a5c0d"
-  style="position: fixed; bottom: 20px; right: 20px; height: 500px; width: 350px; border: none; display: none; z-index: 1000;">
-</iframe>
+
+  <!-- Button to toggle chatbot -->
+  <button id="toggle-chatbot" style="position: fixed; bottom: 20px; left: 20px;">Chatbot</button>
+
+  <!-- Chatbot iframe -->
+  <iframe
+    id="chatbot-iframe"
+    src="https://cdn.botpress.cloud/webchat/v2/shareable.html?botId=b0290556-9846-4c80-9f00-bdd2381a5c0d"
+    style="position: fixed; bottom: 20px; right: 20px; height: 500px; width: 350px; border: none; display: none; z-index: 1000;">
+  </iframe>
+
+  <!-- External application form -->
+  <section id="external-form">
+    <h2>Apply for Admission</h2>
+    <iframe
+      src="https://66da066b90eba47b65bc69c0--ubiquitous-crepe-4379d0.netlify.app/"
+      style="width: 100%; height: 800px; border: none;">
+    </iframe>
+  </section>
+
   <script src="Sih.js"></script> <!-- Ensure this path is correct -->
+
+  <!-- Chatbot toggle script -->
+  <script>
+    document.getElementById("toggle-chatbot").addEventListener("click", function() {
+      const chatbotIframe = document.getElementById("chatbot-iframe");
+      if (chatbotIframe.style.display === "none") {
+        chatbotIframe.style.display = "block";
+      } else {
+        chatbotIframe.style.display = "none";
+      }
+    });
+  </script>
+
 </body>
 </html>
