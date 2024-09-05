@@ -8,18 +8,27 @@ let opdQueue = [];
 
 // Function to fetch CSV content from GitHub
 async function fetchCSVData() {
-  const response = await fetch(`https://api.github.com/repos/${username}/${repo}/contents/${filePath}`, {
-    method: 'GET',
-    headers: {
-      'Authorization': `token ${token}`,
-      'Accept': 'application/vnd.github.v3+json'
+  try {
+    const response = await fetch(`https://api.github.com/repos/${username}/${repo}/contents/${filePath}`, {
+      method: 'GET',
+      headers: {
+        'Authorization': `token ${token}`,
+        'Accept': 'application/vnd.github.v3+json'
+      }
+    });
+
+    if (!response.ok) {
+      throw new Error(`GitHub API error: ${response.statusText}`);
     }
-  });
 
-  const fileData = await response.json();
-  const csvContent = atob(fileData.content); // Decode base64 content
+    const fileData = await response.json();
+    const csvContent = atob(fileData.content); // Decode base64 content
 
-  return csvContent;
+    return csvContent;
+  } catch (error) {
+    console.error('Error fetching CSV data:', error);
+    alert('Failed to fetch CSV data.');
+  }
 }
 
 // Function to parse CSV into array of objects
@@ -30,14 +39,14 @@ function parseCSV(csvContent) {
   const data = lines.slice(1).map(line => {
     const values = line.split(",");
     return {
-      name: values[0].trim(),
-      age: values[1].trim(),
-      sex: values[2].trim(),
-      bloodGroup: values[3].trim(),
-      phone: values[4].trim(),
-      problem: values[5].trim(),
-      department: values[6].trim(),
-      doctorName: values[7].trim()
+      name: values[0]?.trim() || '',
+      age: values[1]?.trim() || '',
+      sex: values[2]?.trim() || '',
+      bloodGroup: values[3]?.trim() || '',
+      phone: values[4]?.trim() || '',
+      problem: values[5]?.trim() || '',
+      department: values[6]?.trim() || '',
+      doctorName: values[7]?.trim() || ''
     };
   });
 
@@ -47,25 +56,27 @@ function parseCSV(csvContent) {
 // Function to populate OPD queue dynamically
 async function populateQueue() {
   const csvData = await fetchCSVData();
-  opdQueue = parseCSV(csvData);
+  if (csvData) {
+    opdQueue = parseCSV(csvData);
 
-  const queueList = document.getElementById("queue-list");
-  queueList.innerHTML = ''; // Clear existing data
+    const queueList = document.getElementById("queue-list");
+    queueList.innerHTML = ''; // Clear existing data
 
-  opdQueue.forEach(patient => {
-    const row = document.createElement("tr");
-    row.innerHTML = `
-      <td>${patient.name}</td>
-      <td>${patient.age}</td>
-      <td>${patient.sex}</td>
-      <td>${patient.bloodGroup}</td>
-      <td>${patient.phone}</td>
-      <td>${patient.problem}</td>
-      <td>${patient.department}</td>
-      <td>${patient.doctorName}</td>
-    `;
-    queueList.appendChild(row);
-  });
+    opdQueue.forEach(patient => {
+      const row = document.createElement("tr");
+      row.innerHTML = `
+        <td>${patient.name}</td>
+        <td>${patient.age}</td>
+        <td>${patient.sex}</td>
+        <td>${patient.bloodGroup}</td>
+        <td>${patient.phone}</td>
+        <td>${patient.problem}</td>
+        <td>${patient.department}</td>
+        <td>${patient.doctorName}</td>
+      `;
+      queueList.appendChild(row);
+    });
+  }
 }
 
 // Sample data for bed availability
