@@ -4,11 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Hospital Queuing System</title>
-  <link rel="stylesheet" href="graphics.css">
+  <link rel="stylesheet" href="graphics.css"> <!-- Ensure this path is correct -->
 </head>
 <body>
   <header>
-    <h1>Hospital Management System</h1>
+    <h1>InstaCare Hub</h1>
+    <div class="icon">
+      <img src="C:\Users\ASUS\OneDrive\Desktop\SIH\logo.jpg" alt="Hospital Logo"> <!-- Adjust the path to your image -->
+    </div>
   </header>
 
   <section id="opd-queue">
@@ -26,36 +29,47 @@
       </tbody>
     </table>
   </section>
-
-  <section id="bed-availability">
-    <h2>Bed Availability</h2>
-    <div class="beds">
-      <div class="bed">
-        <h3>ICU</h3>
-        <p id="icu-beds">Available Beds: 0</p>
-      </div>
-      <div class="bed">
-        <h3>General Ward</h3>
-        <p id="general-beds">Available Beds: 0</p>
-      </div>
-      <div class="bed">
-        <h3>Private Room</h3>
-        <p id="private-beds">Available Beds: 0</p>
-      </div>
-    </div>
-  </section>
-   <button id="toggle-chatbot" style="position: fixed; bottom: 20px; left: 20px;">Toggle Chatbot</button>
+ <button id="toggle-chatbot" style="position: fixed; bottom: 20px; left: 20px;">Toggle Chatbot</button>
 <iframe
   id="chatbot-iframe"
   src="https://cdn.botpress.cloud/webchat/v2/shareable.html?botId=b0290556-9846-4c80-9f00-bdd2381a5c0d"
   style="position: fixed; bottom: 20px; right: 20px; height: 500px; width: 350px; border: none; display: none; z-index: 1000;">
 </iframe>
-
+  <section id="bed-availability">
+    <h2>Bed Availability</h2>
+    <div class="beds">
+      <div class="bed icu">
+        <h3>ICU</h3>
+        <p id="icu-beds">Available Beds: 0</p>
+      </div>
+      <div class="bed general-ward">
+        <h3>General Ward</h3>
+        <p id="general-beds">Available Beds: 0</p>
+      </div>
+      <div class="bed private-room">
+        <h3>Private Room</h3>
+        <p id="private-beds">Available Beds: 0</p>
+      </div>
+    </div>
+  </section>
+  
   <section id="admission-form">
     <h2>Patient Admission</h2>
     <form id="admissionForm">
       <label for="patientName">Patient Name:</label>
       <input type="text" id="patientName" required>
+      <label for="age">Age:</label>
+      <input type="text" id="age" required>
+      <label for="sex">Sex:</label>
+      <input type="text" id="sex" required>
+      <label for="bloodGroup">Blood Group:</label>
+      <input type="text" id="bloodGroup" required>
+      <label for="phoneNo">Phone no:</label>
+      <input type="text" id="phoneNo" required>
+      <label for="issue">Issue:</label>
+      <input type="text" id="issue" required>
+      <label for="department">Department:</label>
+      <input type="text" id="department" required>
 
       <label for="ward">Select Ward:</label>
       <select id="ward">
@@ -68,7 +82,6 @@
     </form>
   </section>
 
-  <script src="Sih.js"></script>
-  <script src="Script2.js"></script>
+  <script src="Sih.js"></script> <!-- Ensure this path is correct -->
 </body>
 </html>
