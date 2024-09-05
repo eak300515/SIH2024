@@ -1,18 +1,19 @@
 // GitHub repository details
 const username = "your-username"; // Replace with your GitHub username
 const repo = "your-repo"; // Replace with your repository name
-const filePath = "path/to/file.csv"; // Path to the CSV file in the repo
-const token = "your-github-token"; // Replace with your GitHub personal access token
+const filePath = "https://github.com/Anirban-Sarkar-code-it/SIH2024/blob/255fd8eef9b338980d93d2a52fec4734bea6e2f5/Patient_data.csv"; // Path to the CSV file in the repo
+const token = "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"; // Your GitHub personal access token
 
 // Function to fetch the file content from GitHub (CSV format)
 async function getFileSha() {
-  const response = await fetch(`https://api.github.com/repos/${username}/${repo}/contents/${filePath}`, {
+  const response = await fetch(`https://github.com/Anirban-Sarkar-code-it/SIH2024/blob/255fd8eef9b338980d93d2a52fec4734bea6e2f5/Patient_data.csv`, {
     method: 'GET',
     headers: {
       'Authorization': `token ${token}`,
       'Accept': 'application/vnd.github.v3+json'
     }
   });
+  
   const fileData = await response.json();
   return fileData.sha; // This is the file's SHA needed for updating the file
 }
@@ -28,7 +29,7 @@ async function updateCSV(patientName, ward) {
   const base64Data = btoa(newPatientData);
 
   // Make the API request to update the file
-  const response = await fetch(`https://api.github.com/repos/${username}/${repo}/contents/${filePath}`, {
+  const response = await fetch(`https://github.com/Anirban-Sarkar-code-it/SIH2024/blob/255fd8eef9b338980d93d2a52fec4734bea6e2f5/Patient_data.csv`, {
     method: 'PUT',
     headers: {
       'Authorization': `token ${token}`,
