@@ -2,7 +2,7 @@
 let opdQueue = [
   { name: "Lakshay Singh", time: "10:00 AM", status: "Waiting" },
   { name: "Anirban Sarkar", time: "10:15 AM", status: "In Consultation" },
-  { name: "Akshay Triwedi", time: "10:00 AM", status: "In Consultation" },
+  { name: "Akshay Triwedi", time: "10:30 AM", status: "In Consultation" },
   { name: "Vyakhya Namdev", time: "11:00 AM", status: "Waiting" }
 ];
 
@@ -10,7 +10,7 @@ let opdQueue = [
 let bedAvailability = {
   icu: 15,
   general: 45,
-  private: 166
+  private: 16
 };
 
 // Function to populate OPD queue
@@ -32,10 +32,10 @@ function updateBedAvailability() {
   document.getElementById("private-beds").innerText = `Available Beds: ${bedAvailability.private}`;
 }
 
-// Event listener for patient admission form submission
-document.getElementById("admissionForm").addEventListener("submit", function(event) {
+// Function to handle form submission for patient admission
+function handleFormSubmission(event) {
   event.preventDefault();
-  
+
   // Get form field values
   let patientName = document.getElementById("patientName").value;
   let age = document.getElementById("age").value;
@@ -48,7 +48,7 @@ document.getElementById("admissionForm").addEventListener("submit", function(eve
 
   // Check if there's availability in the selected ward
   if (bedAvailability[ward] > 0) {
-    bedAvailability[ward]--; // Decrement bed availability
+    bedAvailability[ward]--; // Decrease the bed count in the selected ward
 
     // Prepare the patient data to be submitted
     let newPatient = {
@@ -74,7 +74,7 @@ document.getElementById("admissionForm").addEventListener("submit", function(eve
     .then(result => {
       alert(`${patientName} has been admitted to ${ward.charAt(0).toUpperCase() + ward.slice(1)} Ward.`);
       updateBedAvailability();
-      
+
       // Optionally, add the new patient to the OPD queue (if necessary)
       opdQueue.push({ name: patientName, time: "Pending", status: "Admitted" });
       populateQueue();
@@ -86,7 +86,7 @@ document.getElementById("admissionForm").addEventListener("submit", function(eve
   } else {
     alert(`No available beds in ${ward.charAt(0).toUpperCase() + ward.slice(1)} Ward.`);
   }
-});
+}
 
 // Initialize the page with sample data
 populateQueue();
@@ -101,3 +101,6 @@ document.getElementById("toggle-chatbot").addEventListener("click", function() {
     chatbotIframe.style.display = "none";
   }
 });
+
+// Event listener for patient admission form submission
+document.getElementById("admissionForm").addEventListener("submit", handleFormSubmission);
