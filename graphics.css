@@ -1,15 +1,16 @@
 body {
   font-family: Arial, sans-serif;
-  background-image: url('https://github.com/Anirban-Sarkar-code-it/SIH2024/blob/a2580aa8c9a5279a40d1ef2b4bf6f15a468124c3/54-545682_doctor-logo-doctor-logo-png.png'); /* Example path */
-  background-size: cover; /* Ensure the image covers the entire background */
+  background-image: url('https://github.com/Anirban-Sarkar-code-it/SIH2024/blob/a2580aa8c9a5279a40d1ef2b4bf6f15a468124c3/54-545682_doctor-logo-doctor-logo-png.png'); /* Background image URL */
+  background-size: cover; /* Ensures the image covers the entire background */
+  background-position: center; /* Centers the image */
+  background-attachment: fixed; /* Fixes the background image in place */
   line-height: 1.6;
-  background-position: center; /* Center the image */
   margin: 0;
-  padding: 0; 
+  padding: 0;
 }
 
 header {
-  background-color: rgba(0, 170, 255, 0);  /* Fully transparent */
+  background-color: rgba(0, 170, 255, 0); /* Fully transparent */
   color: white;
   padding: 1.5rem;
   text-align: center;
@@ -17,16 +18,35 @@ header {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Adds shadow */
   perspective: 500px;
   height: 60px; 
+  animation: fadeIn 2s ease-in; /* Animation for fading in the header */
 }
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
 h1 {
   font-size: 2.5rem;
   margin: 0;
   transform: rotateX(15deg); /* Adds a slight tilt */
   text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5); /* Creates a 3D text effect */
+  animation: slideIn 1.5s ease-out; /* Animation for sliding in the heading */
+}
+
+@keyframes slideIn {
+  from { transform: translateY(-50px) rotateX(15deg); opacity: 0; }
+  to { transform: translateY(0) rotateX(15deg); opacity: 1; }
 }
 
 section {
   margin: 2rem;
+  animation: fadeInUp 2s ease-out; /* Animation for sections fading in and sliding up */
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 h1, h2 {
@@ -37,6 +57,12 @@ table {
   width: 100%;
   border-collapse: collapse;
   margin: 1rem 0;
+  animation: tableSlide 2s ease-out; /* Animation for the table sliding in */
+}
+
+@keyframes tableSlide {
+  from { opacity: 0; transform: translateX(-50px); }
+  to { opacity: 1; transform: translateX(0); }
 }
 
 table, th, td {
@@ -59,12 +85,25 @@ th, td {
   border: 1px solid #007bff;
   width: 30%;
   text-align: center;
+  animation: pulse 2s infinite; /* Animation for pulsing effect */
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
 }
 
 form {
   background-color: #fff;
   padding: 1rem;
   border: 1px solid #ccc;
+  animation: formFadeIn 2s ease-out; /* Animation for form fading in */
+}
+
+@keyframes formFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 label {
@@ -83,6 +122,7 @@ button {
   color: white;
   border: none;
   cursor: pointer;
+  transition: background-color 0.3s; /* Smooth transition for background color */
 }
 
 button:hover {
