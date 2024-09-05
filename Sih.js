@@ -30,40 +30,52 @@ function updateBedAvailability() {
   document.getElementById("private-beds").innerText = `Available Beds: ${bedAvailability.private}`;
 }
 
-document.getElementById("toggle-chatbot").addEventListener("click", function() {
-  const chatbotIframe = document.getElementById("chatbot-iframe");
-  if (chatbotIframe.style.display === "none") {
-    chatbotIframe.style.display = "block";
-  } else {
-    chatbotIframe.style.display = "none";
-  }
-});
-
 // Event listener for patient admission form submission
 document.getElementById("admissionForm").addEventListener("submit", function(event) {
   event.preventDefault();
   
+  // Get form field values
   let patientName = document.getElementById("patientName").value;
+  let age = document.getElementById("age").value;
+  let sex = document.getElementById("sex").value;
+  let bloodGroup = document.getElementById("bloodGroup").value;
+  let phoneNo = document.getElementById("phoneNo").value;
+  let issue = document.getElementById("issue").value;
+  let department = document.getElementById("department").value;
   let ward = document.getElementById("ward").value;
 
+  // Check if there's availability in the selected ward
   if (bedAvailability[ward] > 0) {
     bedAvailability[ward]--; // Decrement bed availability
 
-    // Send data to Google Sheets
+    // Prepare the patient data to be submitted
+    let newPatient = {
+      name: patientName,
+      age: age,
+      sex: sex,
+      bloodGroup: bloodGroup,
+      phoneNo: phoneNo,
+      issue: issue,
+      department: department,
+      ward: ward
+    };
+
+    // Send data to Google Sheets (replace with your Google Sheets Web App URL)
     fetch('YOUR_GOOGLE_SHEET_WEB_APP_URL', { // Replace with your Web App URL
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({
-        name: patientName,
-        ward: ward
-      })
+      body: JSON.stringify(newPatient)
     })
     .then(response => response.text())
     .then(result => {
       alert(`${patientName} has been admitted to ${ward.charAt(0).toUpperCase() + ward.slice(1)} Ward.`);
       updateBedAvailability();
+      
+      // Optionally, add the new patient to the OPD queue (if necessary)
+      opdQueue.push({ name: patientName, time: "Pending", status: "Admitted" });
+      populateQueue();
     })
     .catch(error => {
       console.error('Error:', error);
