@@ -1,7 +1,9 @@
 // Sample data for queue and bed availability
 let opdQueue = [
-  { name: "John Doe", time: "10:00 AM", status: "Waiting" },
-  { name: "Jane Smith", time: "10:15 AM", status: "In Consultation" }
+  { name: "Lakshay Singh", time: "10:00 AM", status: "Waiting" },
+  { name: "Anirban Sarkar", time: "10:15 AM", status: "In Consultation" },
+  { name: "Akshay Triwedi", time: "10:00 AM", status: "In Consultation"},
+  {name: "Vyakhya Namdev", time: "11:00 AM", status: "waiting"}
 ];
 
 
