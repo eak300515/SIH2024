@@ -1,3 +1,4 @@
+/* Global styles */
 body {
   font-family: 'Roboto', sans-serif;
   background-color: #333; /* Light black background */
@@ -64,9 +65,10 @@ section {
 }
 
 h1, h2 {
-  color: #333;
+  color: #00ffff;
 }
 
+/* Table Styling */
 table {
   width: 100%;
   border-collapse: collapse;
@@ -94,13 +96,13 @@ th {
   color: white; /* Text color to ensure readability */
   font-weight: bold;
   padding: 1rem;
-  text-align: left;
 }
 
 td:hover {
   background-color: #eaf4ff; /* Subtle blue highlight on hover */
 }
 
+/* Bed Availability Styling */
 #bed-availability .beds {
   display: flex;
   justify-content: space-between;
@@ -120,16 +122,13 @@ td:hover {
   text-shadow: 0 0 2px #00f1ff, 0 0 4px #00f1ff; /* Further reduced brightness effect */
 }
 
-
-
-
-
 @keyframes pulse {
   0% { transform: scale(1); }
   50% { transform: scale(1.1); }
   100% { transform: scale(1); }
 }
 
+/* Admission Form Styling */
 form {
   background-color: #fff;
   padding: 1rem;
@@ -185,7 +184,6 @@ button:active {
 }
 
 /* Custom Scrollbar */
-/* Custom Scrollbar */
 ::-webkit-scrollbar {
   width: 12px;
 }
@@ -200,5 +198,5 @@ button:active {
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #555; /* Even darker grey color when hovered */
+  background: #555; /* Even darker grey color when hovered */
 }
