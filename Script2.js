@@ -1,62 +1,79 @@
-// GitHub repository details
-const username = "your-username"; // Replace with your GitHub username
-const repo = "your-repo"; // Replace with your repository name
-const filePath = "https://github.com/Anirban-Sarkar-code-it/SIH2024/blob/255fd8eef9b338980d93d2a52fec4734bea6e2f5/Patient_data.csv"; // Path to the CSV file in the repo
-const token = "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"; // Your GitHub personal access token
+let opdQueue = [
+  { name: "Lakshay Singh", time: "10:00 AM", status: "Waiting" },
+  { name: "Anirban Sarkar", time: "10:15 AM", status: "In Consultation" },
+  { name: "Akshay Triwedi", time: "10:00 AM", status: "In Consultation" },
+  { name: "Vyakhya Namdev", time: "11:00 AM", status: "Waiting" }
+];
 
-// Function to fetch the file content from GitHub (CSV format)
-async function getFileSha() {
-  const response = await fetch(`https://github.com/Anirban-Sarkar-code-it/SIH2024/blob/255fd8eef9b338980d93d2a52fec4734bea6e2f5/Patient_data.csv`, {
-    method: 'GET',
-    headers: {
-      'Authorization': `token ${token}`,
-      'Accept': 'application/vnd.github.v3+json'
-    }
+let bedAvailability = {
+  icu: 15,
+  general: 45,
+  private: 166
+};
+
+// Function to populate OPD queue
+function populateQueue() {
+  const queueList = document.getElementById("queue-list");
+  queueList.innerHTML = ''; // Clear existing data
+
+  opdQueue.forEach(patient => {
+    const row = document.createElement("tr");
+    row.innerHTML = `<td>${patient.name}</td><td>${patient.time}</td><td>${patient.status}</td>`;
+    queueList.appendChild(row);
   });
-  
-  const fileData = await response.json();
-  return fileData.sha; // This is the file's SHA needed for updating the file
 }
 
-// Function to update the CSV file in the GitHub repository
-async function updateCSV(patientName, ward) {
-  const sha = await getFileSha(); // Fetch the current SHA for the file
-  
-  // The new CSV data to append
-  const newPatientData = `${patientName},${ward},${new Date().toLocaleString()}\n`;
+// Function to update bed availability
+function updateBedAvailability() {
+  document.getElementById("icu-beds").innerText = `Available Beds: ${bedAvailability.icu}`;
+  document.getElementById("general-beds").innerText = `Available Beds: ${bedAvailability.general}`;
+  document.getElementById("private-beds").innerText = `Available Beds: ${bedAvailability.private}`;
+}
 
-  // Convert the new data to Base64 for GitHub
-  const base64Data = btoa(newPatientData);
-
-  // Make the API request to update the file
-  const response = await fetch(`https://github.com/Anirban-Sarkar-code-it/SIH2024/blob/255fd8eef9b338980d93d2a52fec4734bea6e2f5/Patient_data.csv`, {
-    method: 'PUT',
-    headers: {
-      'Authorization': `token ${token}`,
-      'Accept': 'application/vnd.github.v3+json',
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      message: "Updated patient data",
-      content: base64Data,
-      sha: sha
-    })
-  });
-
-  if (response.ok) {
-    alert('Patient data updated successfully!');
+document.getElementById("toggle-chatbot").addEventListener("click", function() {
+  const chatbotIframe = document.getElementById("chatbot-iframe");
+  if (chatbotIframe.style.display === "none") {
+    chatbotIframe.style.display = "block";
   } else {
-    alert('Failed to update patient data!');
+    chatbotIframe.style.display = "none";
   }
-}
+});
 
-// Event listener for the admission form submission
+// Event listener for patient admission form submission
 document.getElementById("admissionForm").addEventListener("submit", function(event) {
   event.preventDefault();
   
   let patientName = document.getElementById("patientName").value;
   let ward = document.getElementById("ward").value;
 
-  // Call the function to update the CSV file on GitHub
-  updateCSV(patientName, ward);
+  if (bedAvailability[ward] > 0) {
+    bedAvailability[ward]--; // Decrement bed availability
+
+    // Send data to Google Sheets
+    fetch('YOUR_GOOGLE_SHEET_WEB_APP_URL', { // Replace with your Web App URL
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        name: patientName,
+        ward: ward
+      })
+    })
+    .then(response => response.text())
+    .then(result => {
+      alert(`${patientName} has been admitted to ${ward.charAt(0).toUpperCase() + ward.slice(1)} Ward.`);
+      updateBedAvailability();
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      alert('Failed to add patient details.');
+    });
+  } else {
+    alert(`No available beds in ${ward.charAt(0).toUpperCase() + ward.slice(1)} Ward.`);
+  }
 });
+
+// Initialize the page with sample data
+populateQueue();
+updateBedAvailability();
