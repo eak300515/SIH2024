@@ -1,37 +1,51 @@
 body {
-  font-family: Arial, sans-serif;
-  background-image: url('https://github.com/Anirban-Sarkar-code-it/SIH2024/blob/a2580aa8c9a5279a40d1ef2b4bf6f15a468124c3/54-545682_doctor-logo-doctor-logo-png.png'); /* Background image URL */
-  background-size: cover; /* Ensures the image covers the entire background */
-  background-position: center; /* Centers the image */
-  background-attachment: fixed; /* Fixes the background image in place */
+  font-family: 'Roboto', sans-serif;
+  background-color: #333; /* Light black background */
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
   line-height: 1.6;
   margin: 0;
   padding: 0;
+  backdrop-filter: blur(8px);
+  color: #00ffff; /* Neon blue for the body text */
 }
 
 header {
-  background-color: rgba(0, 170, 255, 0); /* Fully transparent */
-  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(135deg, rgba(0, 170, 255, 0.6), rgba(0, 170, 255, 0)); /* Gradient background */
   padding: 1.5rem;
   text-align: center;
   position: relative;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Adds shadow */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); /* Slightly deeper shadow */
   perspective: 500px;
-  height: 60px; 
-  animation: fadeIn 2s ease-in; /* Animation for fading in the header */
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  height: 60px;
+  animation: fadeIn 2s ease-in;
 }
 
 h1 {
   font-size: 2.5rem;
   margin: 0;
-  transform: rotateX(15deg); /* Adds a slight tilt */
-  text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5); /* Creates a 3D text effect */
-  animation: slideIn 1.5s ease-out; /* Animation for sliding in the heading */
+  color: #00ffff; /* Neon blue color for the header text */
+  text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff, 0 0 40px #00ffff; /* Neon blue glowing effect */
+  transform: rotateX(15deg);
+  animation: slideIn 1.5s ease-out;
+}
+
+.icon {
+  flex-shrink: 0;
+}
+
+.icon img {
+  height: 40px; /* Adjust size as needed */
+  width: auto;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 @keyframes slideIn {
@@ -41,7 +55,7 @@ h1 {
 
 section {
   margin: 2rem;
-  animation: fadeInUp 2s ease-out; /* Animation for sections fading in and sliding up */
+  animation: fadeInUp 2s ease-out;
 }
 
 @keyframes fadeInUp {
@@ -57,7 +71,7 @@ table {
   width: 100%;
   border-collapse: collapse;
   margin: 1rem 0;
-  animation: tableSlide 2s ease-out; /* Animation for the table sliding in */
+  animation: tableSlide 2s ease-out;
 }
 
 @keyframes tableSlide {
@@ -72,25 +86,47 @@ table, th, td {
 th, td {
   padding: 1rem;
   text-align: left;
+  transition: background-color 0.3s, box-shadow 0.3s; /* Smooth background color transition */
+}
+
+th {
+  background: linear-gradient(135deg, #ff7e5f, #feb47b); /* Gradient background */
+  color: white; /* Text color to ensure readability */
+  font-weight: bold;
+  padding: 1rem;
+  text-align: left;
+}
+
+td:hover {
+  background-color: #eaf4ff; /* Subtle blue highlight on hover */
 }
 
 #bed-availability .beds {
   display: flex;
   justify-content: space-between;
+  margin: 1rem 0;
 }
 
 .bed {
-  background-color: #e7f3fe;
-  padding: 1rem;
-  border: 1px solid #007bff;
+  background-color: rgba(0, 110, 126, 0.2);
+  padding: 1.5rem;
+  border: 1px solid rgba(0, 110, 126, 0.4);
   width: 30%;
   text-align: center;
-  animation: pulse 2s infinite; /* Animation for pulsing effect */
+  animation: pulse 2s infinite;
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 2px 4px rgba(0, 150, 136, 0.1); /* Reduced shadow intensity */
+  color: #00f1ff; /* Light shadow */
+  text-shadow: 0 0 2px #00f1ff, 0 0 4px #00f1ff; /* Further reduced brightness effect */
 }
+
+
+
+
 
 @keyframes pulse {
   0% { transform: scale(1); }
-  50% { transform: scale(1.05); }
+  50% { transform: scale(1.1); }
   100% { transform: scale(1); }
 }
 
@@ -98,7 +134,9 @@ form {
   background-color: #fff;
   padding: 1rem;
   border: 1px solid #ccc;
-  animation: formFadeIn 2s ease-out; /* Animation for form fading in */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Light shadow */
+  animation: formFadeIn 2s ease-out;
 }
 
 @keyframes formFadeIn {
@@ -109,22 +147,58 @@ form {
 label {
   display: block;
   margin: 0.5rem 0;
+  color: black;
+  font-weight: bold;
 }
 
 input, select, button {
   width: 100%;
   padding: 0.5rem;
   margin: 0.5rem 0;
+  border-radius: 4px; /* Rounded corners for input elements */
+  border: 1px solid #ccc;
+}
+
+input:focus, select:focus, button:focus {
+  outline: none;
+  border-color: #00ffff; /* Neon blue border on focus */
+  box-shadow: 0 0 5px #00ffff; /* Neon blue glow on focus */
 }
 
 button {
-  background-color: #007bff;
+  background: linear-gradient(135deg, #ff7e5f, #feb47b); /* Gradient background */
   color: white;
   border: none;
   cursor: pointer;
-  transition: background-color 0.3s; /* Smooth transition for background color */
+  border-radius: 4px; /* Rounded corners for button */
+  transition: background 0.3s, transform 0.2s, box-shadow 0.3s; /* Smooth transition for background and transform */
 }
 
 button:hover {
-  background-color: #0056b3;
+  background: linear-gradient(135deg, #feb47b, #ff7e5f); /* Hover gradient */
+  transform: scale(1.05); /* Slightly enlarge on hover */
+  box-shadow: 0 8px 20px rgba(255, 126, 95, 0.6); /* Glowing effect */
+}
+
+button:active {
+  transform: scale(0.95); /* Slightly shrink on click */
+}
+
+/* Custom Scrollbar */
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Light grey background for the scrollbar track */
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888; /* Darker grey color for the scrollbar thumb */
+  border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555; /* Even darker grey color when hovered */
 }
