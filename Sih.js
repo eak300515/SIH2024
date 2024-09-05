@@ -1,17 +1,17 @@
 // GitHub repository details
-const username = "Anirban-Sarkar-code-it"; // Replace with your GitHub username
-const repo = "SIH2024"; // Replace with your repository name
-const filePath = "https://github.com/Anirban-Sarkar-code-it/SIH2024/blob/255fd8eef9b338980d93d2a52fec4734bea6e2f5/Patient_data.csv"; // Path to the CSV file in the repo
+const username = "Anirban-Sarkar-code-it"; // Your GitHub username
+const repo = "SIH2024"; // Your repository name
+const filePath = "Patient_data.csv"; // Path to the CSV file in the repo
 const token = "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"; // Your GitHub personal access token
 
 let opdQueue = [];
 
 // Function to fetch CSV content from GitHub
 async function fetchCSVData() {
-  const response = await fetch(`https://api.github.com/repos/${Anirban-Sarkar-code-it}/${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}/contents/${https://github.com/Anirban-Sarkar-code-it/SIH2024/blob/255fd8eef9b338980d93d2a52fec4734bea6e2f5/Patient_data.csv}`, {
+  const response = await fetch(`https://api.github.com/repos/${username}/${repo}/contents/${filePath}`, {
     method: 'GET',
     headers: {
-      'Authorization': `token ${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}`,
+      'Authorization': `token ${token}`,
       'Accept': 'application/vnd.github.v3+json'
     }
   });
@@ -24,15 +24,20 @@ async function fetchCSVData() {
 
 // Function to parse CSV into array of objects
 function parseCSV(csvContent) {
-  const lines = csvContent.split("\n");
-  const headers = lines[0].split(",");
+  const lines = csvContent.split("\n").filter(line => line.trim() !== ''); // Remove empty lines
+  const headers = lines[0].split(","); // Assuming the first row is the header
 
   const data = lines.slice(1).map(line => {
     const values = line.split(",");
     return {
       name: values[0].trim(),
-      time: values[1].trim(),
-      status: values[2].trim()
+      age: values[1].trim(),
+      sex: values[2].trim(),
+      bloodGroup: values[3].trim(),
+      phone: values[4].trim(),
+      problem: values[5].trim(),
+      department: values[6].trim(),
+      doctorName: values[7].trim()
     };
   });
 
@@ -49,10 +54,26 @@ async function populateQueue() {
 
   opdQueue.forEach(patient => {
     const row = document.createElement("tr");
-    row.innerHTML = `<td>${patient.name}</td><td>${patient.time}</td><td>${patient.status}</td>`;
+    row.innerHTML = `
+      <td>${patient.name}</td>
+      <td>${patient.age}</td>
+      <td>${patient.sex}</td>
+      <td>${patient.bloodGroup}</td>
+      <td>${patient.phone}</td>
+      <td>${patient.problem}</td>
+      <td>${patient.department}</td>
+      <td>${patient.doctorName}</td>
+    `;
     queueList.appendChild(row);
   });
 }
+
+// Sample data for bed availability
+let bedAvailability = {
+  icu: 15,
+  general: 45,
+  private: 166,
+};
 
 // Function to update bed availability
 function updateBedAvailability() {
@@ -80,7 +101,7 @@ document.getElementById("admissionForm").addEventListener("submit", function(eve
   if (bedAvailability[ward] > 0) {
     bedAvailability[ward]--;
     
-    // Send data to Google Sheets
+    // Send data to Google Sheets (replace with your actual Web App URL)
     fetch('YOUR_GOOGLE_SHEET_WEB_APP_URL', { // Replace with your Web App URL
       method: 'POST',
       contentType: 'application/json',
@@ -103,6 +124,6 @@ document.getElementById("admissionForm").addEventListener("submit", function(eve
   }
 });
 
-// Initialize the page with sample data
+// Initialize the page with data
 populateQueue();
 updateBedAvailability();
