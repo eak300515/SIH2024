@@ -1,15 +1,28 @@
 body {
   font-family: Arial, sans-serif;
-  background-color: #f0f0f0;
+  background-image: url('C:\Users\ASUS\OneDrive\Desktop\SIH\54-545682_doctor-logo-doctor-logo-png.png'); /* Example path */
+  background-size: cover; /* Ensure the image covers the entire background */
+  line-height: 1.6;
+  background-position: center; /* Center the image */
   margin: 0;
-  padding: 0;
+  padding: 0; 
 }
 
 header {
-  background-color: #007bff;
+  background-color: rgba(0, 170, 255, 0);  /* Fully transparent */
   color: white;
-  padding: 1rem;
+  padding: 1.5rem;
   text-align: center;
+  position: relative;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Adds shadow */
+  perspective: 500px;
+  height: 60px; 
+}
+h1 {
+  font-size: 2.5rem;
+  margin: 0;
+  transform: rotateX(15deg); /* Adds a slight tilt */
+  text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5); /* Creates a 3D text effect */
 }
 
 section {
