@@ -62,11 +62,15 @@
   <script src="Sih.js"></script> <!-- Ensure this path is correct -->
 
   <!-- Chatbot toggle script -->
- <script src="https://cdn.botpress.cloud/webchat/v1/inject.js"></script>
-<script src="https://mediafiles.botpress.cloud/b0290556-9846-4c80-9f00-bdd2381a5c0d/webchat/config.js" defer></script>
-  </script>
-  <script src="https://cdn.botpress.cloud/webchat/v1/inject.js"></script>
-<script src="https://mediafiles.botpress.cloud/b0290556-9846-4c80-9f00-bdd2381a5c0d/webchat/config.js" defer></script>
+<script>
+    document.getElementById("toggle-chatbot").addEventListener("click", function() {
+      const chatbotIframe = document.getElementById("chatbot-iframe");
+      if (chatbotIframe.style.display === "none") {
+        chatbotIframe.style.display = "block";
+      } else {
+        chatbotIframe.style.display = "none";
+      }
+    });
 
 </body>
 </html>
